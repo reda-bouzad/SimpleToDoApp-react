@@ -1,0 +1,47 @@
+body{
+    background-color: black;
+    color: white;
+}
+
+h1{
+    color:rgb(187, 147, 147);
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+}
+
+#punchline{
+    display: none;
+}
+
+.joke-container{
+    padding: 10px;
+    border: 2px rgb(187, 147, 147) solid;
+}
+
+
+ul{
+    margin-top: 30px;
+}
+
+li{
+    list-style-type: none;
+    background-color: rgb(26, 26, 26);
+    padding: 10px;
+    border: 2px rgb(187, 147, 147) solid;
+    font-size: x-large;
+}
+
+h3{
+    display: inline;
+}
+
+button{
+    display: inline;
+    background-color: rgb(187, 147, 147) !important;
+    border: 0 black !important;
+}
+
+li:hover{
+    background-color: rgb(187, 147, 147);
+    cursor: pointer;
+}
