@@ -1,0 +1,40 @@
+h1{
+    color: green;
+}
+
+.my-input-field{
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px;
+    border: 2px solid green;
+}
+
+.my-submit-button{
+    border: 2px solid green;
+    padding: 15px;
+}
+.my-ul-list{
+    flex-direction: column;
+    display: flex;
+    row-gap: 10px;
+
+}
+
+.my-toDo-container{
+    display: flex;
+    row-gap: 10px;
+    align-items: center;
+}
+
+.my-list{
+    list-style-type: none;
+    font-size: 20px;
+    font-weight: bolder;
+    display: inline;
+    margin-right: 10px;
+    flex-grow: 2;
+}
+
+.my-delete-button{
+    border: 2px solid red;
+}

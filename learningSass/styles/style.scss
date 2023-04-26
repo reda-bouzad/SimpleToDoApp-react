@@ -1,0 +1,8 @@
+$primary-color: red;
+$secondary-color: gold;
+body{
+  background: $primary-color;
+}
+div{
+  background: $secondary-color;
+}
