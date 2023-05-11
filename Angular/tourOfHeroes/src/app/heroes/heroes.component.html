@@ -1,0 +1,37 @@
+<div class="container">
+
+  <div class="card p-3 m-3 ">
+    <!-- format with uppercasePipe -->
+    <h4 class="text-danger text-center"> Demo Hero : </h4>
+    <h5 class="text-success text-center"> {{my_hero.name | uppercase}} Details : </h5>
+    <div><span>id: </span> {{my_hero.id}} </div>
+    <div><span>name: </span> {{my_hero.name}} </div>
+    <!-- ngModel is a two way binding Syntaxe the data can flow from the Ts into the html or the other way around-->
+    <input [(ngModel)]="my_hero.name" id="name" placeholder="name">
+  </div>
+
+  <div class="row">
+
+
+    <div class="my-card card  p-3 m-3 col col-6">
+      <h4 class="text-danger text-center"> List of all Heroes : </h4>
+      <ul>
+        <li [class.selected]="hero === selectedHero" *ngFor="let hero of heroes">
+          <span class="badge text-danger"> {{hero.id}} </span>
+          <span class="name"> {{hero.name}} </span>
+          <button
+                  class="my-btn btn btn-primary"
+                  (click)="onSelect(hero)"
+                  type="button">
+            detail</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="p-3 p-3 m-3 card col col-5">
+      {{selectedHero}}
+    </div>
+
+    </div>
+
+</div>
