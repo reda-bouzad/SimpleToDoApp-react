@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './view/login/login.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { SuccessComponent } from './view/success/success.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    AppComponent
+    AppComponent,
+    SuccessComponent
   ],
     imports: [
         BrowserModule,

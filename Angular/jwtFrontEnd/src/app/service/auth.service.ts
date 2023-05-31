@@ -1,15 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
+import { tap, switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private loginUrl = 'http://localhost:8036/api/v1/auth/authenicate'; // Replace with your login API endpoint URL
-  private authToken: string = "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiW01BTkFHRVJfREVMRVRFLCBBRE1JTl9VUERBVEUsIEFETUlOX0RFTEVURSwgTUFOQUdFUl9DUkVBVEUsIEFETUlOX0NSRUFURSwgTUFOQUdFUl9VUERBVEUsIE1BTkFHRVJfUkVBRCwgQURNSU5fUkVBRCwgUk9MRV9BRE1JTl0iLCJzdWIiOiJhbmFzQGdtYWlsLmNvbSIsImlhdCI6MTY4NTU2NDExOH0.Lm5sHVu7b7J8ztwKWhe795_AmzZGcl1D4PRNvErZnUE";
+  private loginUrl = 'http://localhost:8036/api/v1/auth/authenticate';
+  private tokenUrl = 'http://localhost:8036/api/v1/auth/token';
+  private authToken: string = "";
+  private isAuthenticated: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
+
+  getToken(email: string): Observable<string> {
+    return this.http.get(`${this.tokenUrl}/${email}`, { responseType: 'text' });
+  }
+
+  storeToken(email: string): Observable<any> {
+    return this.getToken(email).pipe(
+      tap(data => {
+        this.authToken = data; // Assign the token value to the authToken property
+      })
+    );
+  }
+
+  functionisAuthenticated(): boolean {
+    return this.isAuthenticated;
+  }
 
   login(email: string, password: string): Observable<any> {
     const loginData = {
@@ -17,10 +38,18 @@ export class AuthService {
       password: password
     };
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.authToken}`
-    });
-
-    return this.http.post(this.loginUrl, loginData, { headers: headers });
+    return this.storeToken(email).pipe(
+      switchMap(() => {
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${this.authToken}`
+        });
+        return this.http.post(this.loginUrl, loginData, { headers: headers });
+      }),
+      tap(() => {
+        // Navigation to the success page
+        this.isAuthenticated = true;
+        this.router.navigate(['/success']); // Navigate to the success page
+      })
+    );
   }
 }
